@@ -7,24 +7,27 @@ current:
 next:
 	curl localhost:8080/next
 
-previous:
+prev:
 	curl localhost:8080/previous
 
 go:
 	go run main.go
 
+gobuild:
+	go build -o bin/main
+
 gotest:
 	go test ./... -cover
 
 build:
-	docker build -t scale-go .
+	docker build -t fibo-scaler .
 
 run:
-	docker run --rm scale-go
+	docker run --rm fibo-scaler
 
 tests:
-	docker build -t scale-test . -f Dockerfile.test
-	docker run --rm scale-test
+	docker build -t fibo-scaler-tests . -f Dockerfile.test
+	docker run --rm fibo-scaler-tests
 
 chglog:
 	docker run --rm -v $(PWD):/workdir quay.io/git-chglog/git-chglog -o CHANGELOG.md
