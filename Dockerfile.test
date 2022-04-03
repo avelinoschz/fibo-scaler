@@ -1,0 +1,11 @@
+FROM golang:1.17.6-alpine3.15 AS build
+
+RUN apk add build-base
+
+WORKDIR /testdir
+
+COPY . .
+
+RUN go mod download
+
+ENTRYPOINT ["go", "test", "./...", "-cover"]
