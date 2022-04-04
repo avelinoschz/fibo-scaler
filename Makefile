@@ -1,6 +1,3 @@
-root:
-	curl localhost:8080/
-
 current:
 	curl localhost:8080/current
 
@@ -23,7 +20,7 @@ build:
 	docker build -t fibo-scaler .
 
 run:
-	docker run --rm fibo-scaler
+	docker run --rm -p 8080:8080 fibo-scaler
 
 tests:
 	docker build -t fibo-scaler-tests . -f Dockerfile.test
