@@ -3,10 +3,19 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
 	"strconv"
 )
 
 func main() {
+	if err := run(); err != nil {
+		log.Printf("error: %s\n", err)
+		os.Exit(1)
+	}
+	os.Exit(0)
+}
+func run() error {
 	log.Print("configuring application")
 
 	v1, v2 := 0, 1
@@ -30,8 +39,23 @@ func main() {
 		w.Write(intByte)
 	})
 
-	log.Println("starting server on port :8080")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		log.Fatal()
+	errChan := make(chan error, 1)
+	go func(c chan error) {
+		log.Println("starting server on port :8080")
+		if err := http.ListenAndServe(":8080", nil); err != nil {
+			log.Fatal()
+		}
+	}(errChan)
+
+	signalChan := make(chan os.Signal, 1)
+	signal.Notify(signalChan, os.Interrupt)
+
+	select {
+	case err := <-errChan:
+		return err
+
+	case <-signalChan:
+		log.Println("shutting down gracefully")
+		return nil
 	}
 }
