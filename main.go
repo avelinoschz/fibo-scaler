@@ -9,11 +9,6 @@ import (
 func main() {
 	log.Print("configuring application")
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("/")
-		w.Write([]byte("Server is happy!"))
-	})
-
 	v1, v2 := 0, 1
 	http.HandleFunc("/previous", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("/previous", v1)

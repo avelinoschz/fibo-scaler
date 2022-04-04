@@ -1,4 +1,4 @@
-module github.com/avelinoschz/scale-go
+module github.com/avelinoschz/fibo-scaler
 
 go 1.16
 
