@@ -44,7 +44,7 @@ But, in the scenario that the whole applications crashes, the specs `--restart:o
 Command to run the load testing container:
 
 ```shell
-docker run -d -p 8080:8080 --restart=on-failure:3 --memory=512m --cpus=1  fibo-scaler
+docker run -d -p 8080:8080 --restart=on-failure:3 --memory=512m --cpus=1.0  fibo-scaler
 ```
 
 ### Test cases
@@ -53,15 +53,15 @@ Here are shown multiple test cases with different rate and duration hitting the 
 
 **Spoiler:** each one of these test got a 100% of *success rate*.
 
-- 1000 req/sec
+- 1000 req/sec during 1 second
 
 ![1000-1](./media/1000-1.gif)
 
-- 2000 req/sec
+- 2000 req/sec during 10 seconds
 
 ![2000-10](./media/2000-10.gif)
 
-- 10,000 req/sec
+- 10,000 req/sec during 15 seconds
 
 ![10000-15](./media/10000-15.gif)
 
