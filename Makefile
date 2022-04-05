@@ -28,12 +28,12 @@ build:
 run:
 	docker run --rm -p 8080:8080 fibo-scaler
 
-run-load:
-	docker run -d -p 8080:8080 --restart=on-failure:3 --memory=512m --cpus=1  fibo-scaler
-
 tests:
 	docker build -t fibo-scaler-tests . -f Dockerfile.test
 	docker run --rm fibo-scaler-tests
+
+run-load:
+	docker run -p 8080:8080 --restart=on-failure:3 --memory=512m --cpus=1.0  fibo-scaler
 
 load:
 	docker run --network=host --rm -it nakabonne/ali ali --rate 1000 --duration 1s http://localhost:8080/next
